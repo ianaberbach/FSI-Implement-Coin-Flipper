@@ -1,27 +1,75 @@
-// TODO: Declare any global variables we need
+// Code for tracking head rolls and tails rolls
+let headsRolls = 0
+let tailsRolls = 0
 
-
+// Listen for DOMContentLoaded to ensure that all HTML and resources
+//  have been loaded before attempting to run code
 document.addEventListener('DOMContentLoaded', function () {
-    // This is just a sanity check to make sure your JavaScript script is getting loaded
-    // You can remove it once you see it in your browser console in the developer tools
-    console.log('Hi')
+    // Make buttons clickable using event listners
+    document.getElementById('flip').addEventListener('click', () => {
+        // Collect data using Math.random with numbers between 0 an 1
+        let flippedHeads = Math.random() < 0.5
 
-    // TODO: Add event listener and handler for flip and clear buttons
+        // Have different images showing depending on if heads or tails
+        if (flippedHeads) {
+            // Picture and message if heads
+            document.getElementById('penny-image').src = 'assets/images/penny-heads.jpg'
+            document.getElementById('message').textContent = 'You Flipped Heads!'
 
-    // Flip Button Click Handler
-        // TODO: Determine flip outcome
-        // TODO: Update image and status message in the DOM
+            // Function to add number to heads
+            headsRolls += 1
+        }
+        else {
+            // Picture and messsage if tails
+            document.getElementById('penny-image').src = 'assets/images/penny-tails.jpg'
+            document.getElementById('message').textContent = 'You Flipped Tails!'
 
-        // Update the scorboard
-        // TODO: Calculate the total number of rolls/flips
-        // Make variables to track the percentages of heads and tails
-        // TODO: Use the calculated total to calculate the percentages
-        // HINT: Make sure not to divide by 0! (if total is 0, percent will be 0 as well)
-        // TODO: Update the display of each table cell
+            // Funtion to add number to tails
+            tailsRolls += 1
+        }
 
+        // Make it so scoreboard changes for each flip
 
-    // Clear Button Click Handler
-        // TODO: Reset global variables to 0
-        // TODO: Update the scoreboard (same logic as in flip button click handler)
+        // Function for finding total number of flips between heads and tails
+        let total = headsRolls + tailsRolls
 
+        // Make variables to take in percent of both heads and tails flips
+        let percentHeads = 0
+        let percentTails = 0
+
+        if (total > 0) {
+            percentHeads = Math.round((headsRolls / total) * 100)
+            percentTails = Math.round((tailsRolls / total) * 100)
+        }
+
+        // Let these values and variables display on the scoreboard
+        document.getElementById('heads').textContent = headsRolls
+        document.getElementById('heads-percent').textContent = percentHeads + '%'
+        document.getElementById('tails').textContent = tailsRolls
+        document.getElementById('tails-percent').textContent = percentTails + '%'
+    })
+
+    document.getElementById('clear').addEventListener('click', function () {
+        // Code for when you hit clear it resets values
+        headsRolls = 0
+        tailsRolls = 0
+
+        // Message update
+        document.getElementById('message').textContent = 'Let\'s Get Rolling!'
+ 
+        let total = headsRolls + tailsRolls
+
+        let percentHeads = 0
+        let percentTails = 0
+
+        if (total > 0) {
+            percentHeads = Math.round((headsRolls / total) * 100)
+            percentTails = Math.round((tailsRolls / total) * 100)
+        }
+
+        document.getElementById('heads').textContent = headsRolls
+        document.getElementById('heads-percent').textContent = percentHeads + '%'
+        document.getElementById('tails').textContent = tailsRolls
+        document.getElementById('tails-percent').textContent = percentTails + '%'
+    })
 })
